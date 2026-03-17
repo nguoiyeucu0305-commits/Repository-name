@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Trang học khóa học</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<header>
+<div class="container">
+<h2>CodeCourse</h2>
+</div>
+</header>
+
+<div style="display:flex">
+
+<!-- SIDEBAR -->
+<div style="width:250px;background:#f4f4f4;padding:20px">
+
+<h3>Nội dung khóa học</h3>
+
+<ul>
+<li>Bài 1: Giới thiệu</li>
+<li>Bài 2: Cài đặt môi trường</li>
+<li>Bài 3: Biến trong JavaScript</li>
+<li>Bài 4: Hàm</li>
+</ul>
+
+</div>
+
+<!-- CONTENT -->
+
+<div style="flex:1;padding:20px">
+
+<h1>Khóa học <%= courseId %></h1>
+
+<iframe width="800" height="450"
+src="https://www.youtube.com/embed/0SJE9dYdpps">
+</iframe>
+
+<p>
+Đây là video bài học.
+</p>
+
+</div>
+
+</div>
+
+</body>
+</html>

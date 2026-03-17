@@ -6,3 +6,8 @@ router.get("/courses", (req, res) => {
    
 });
 module.exports = router;
+router.get("/course/:id", (req, res) => {
+    res.render("courseDetail", {
+        courseId: req.params.id
+    });
+});
