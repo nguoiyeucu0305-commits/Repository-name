@@ -1,13 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const courseController = require("../controllers/courseController");
 
-router.get("/courses", (req, res) => {
-    res.render("courses");
-   
-});
+router.get("/courses", courseController.getCourses);
 module.exports = router;
-router.get("/course/:id", (req, res) => {
-    res.render("courseDetail", {
-        courseId: req.params.id
-    });
-});
+router.get("/course/:id", courseController.getCourseDetail);

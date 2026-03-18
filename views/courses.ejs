@@ -1,43 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Danh sách khóa học</title>
-<link rel="stylesheet" href="/css/style.css">
+    <title>Danh sách khóa học</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
 
 <header>
-<div class="container">
-<h2>CodeCourse</h2>
-</div>
+    <div class="container">
+        <h2>CodeCourse</h2>
+    </div>
 </header>
 
 <div class="container">
 
-<h1>Danh sách khóa học</h1>
+    <h1>Danh sách khóa học</h1>
 
-<div class="course-list">
+    <div class="course-list">
 
-<div class="course-card">
-<h3>JavaScript cơ bản</h3>
-<p>Học JS từ đầu</p>
-<a href="/course/1" class="btn">Học ngay</a>
-</div>
+        <% courses.forEach(course => { %>
 
-<div class="course-card">
-<h3>NodeJS Backend</h3>
-<p>Xây dựng API</p>
-<a href="/course/2" class="btn">Học ngay</a>
-</div>
+            <div class="course-card">
+                <h3><%= course.name %></h3>
+                <p>Khóa học lập trình</p>
+                <a href="/course/<%= course.id %>" class="btn">Học ngay</a>
+            </div>
 
-<div class="course-card">
-<h3>ReactJS</h3>
-<p>Frontend hiện đại</p>
-<a href="/course/3" class="btn">Học ngay</a>
-</div>
+        <% }) %>
 
-</div>
+    </div>
 
 </div>
 

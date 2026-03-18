@@ -1,51 +1,92 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Trang học khóa học</title>
-<link rel="stylesheet" href="/css/style.css">
+    <title>Chi tiết khóa học</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .active {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
 
 <header>
-<div class="container">
-<h2>CodeCourse</h2>
-</div>
+    <div class="container">
+        <h2>CodeCourse</h2>
+    </div>
 </header>
 
-<div style="display:flex">
+<div class="container">
 
-<!-- SIDEBAR -->
-<div style="width:250px;background:#f4f4f4;padding:20px">
+    <h1><%= course.name %></h1>
 
-<h3>Nội dung khóa học</h3>
+    <div style="display:flex; margin-top:20px;">
 
-<ul>
-<li>Bài 1: Giới thiệu</li>
-<li>Bài 2: Cài đặt môi trường</li>
-<li>Bài 3: Biến trong JavaScript</li>
-<li>Bài 4: Hàm</li>
-</ul>
+        <!-- SIDEBAR -->
+        <div style="width:250px; border-right:1px solid #ccc; padding-right:10px;">
+            <h3>Bài học</h3>
+            <ul style="list-style:none; padding:0;">
+
+                <% course.lessons.forEach((lesson, index) => { %>
+                    <li style="margin-bottom:10px;">
+                        <a href="#" 
+                           class="lesson-item <%= index === 0 ? 'active' : '' %>"
+                           data-video="<%= lesson.video %>"
+                           data-title="<%= lesson.title %>">
+                            <%= lesson.title %>
+                        </a>
+                    </li>
+                <% }) %>
+
+            </ul>
+        </div>
+
+        <!-- CONTENT -->
+        <div style="flex:1; padding-left:20px;">
+
+            <% const currentLesson = course.lessons[0]; %>
+
+            <h2 id="lesson-title"><%= currentLesson.title %></h2>
+
+            <video id="lesson-video" width="800" controls>
+                <source id="video-source" src="/videos/<%= currentLesson.video %>" type="video/mp4">
+            </video>
+
+        </div>
+
+    </div>
 
 </div>
 
-<!-- CONTENT -->
+<script>
+    const lessons = document.querySelectorAll(".lesson-item");
+    const video = document.getElementById("lesson-video");
+    const videoSource = document.getElementById("video-source");
+    const title = document.getElementById("lesson-title");
 
-<div style="flex:1;padding:20px">
+    lessons.forEach(item => {
+        item.addEventListener("click", function(e) {
+            e.preventDefault();
 
-<h1>Khóa học <%= courseId %></h1>
+            // active
+            lessons.forEach(l => l.classList.remove("active"));
+            this.classList.add("active");
 
-<iframe width="800" height="450"
-src="https://www.youtube.com/embed/0SJE9dYdpps">
-</iframe>
+            const newVideo = this.dataset.video;
+            const newTitle = this.dataset.title;
 
-<p>
-Đây là video bài học.
-</p>
+            // đổi video
+            videoSource.src = "/videos/" + newVideo;
+            video.load();
 
-</div>
-
-</div>
+            // đổi title
+            title.innerText = newTitle;
+        });
+    });
+</script>
 
 </body>
 </html>
