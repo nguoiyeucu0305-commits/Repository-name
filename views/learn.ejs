@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chi tiết khóa học</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .active {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="container">
+        <h2>CodeCourse</h2>
+    </div>
+</header>
+
+<div class="container">
+
+    <h1><%= course.name %></h1>
+
+    <div style="display:flex; margin-top:20px;">
+
+        <!-- SIDEBAR -->
+        <div style="width:250px; border-right:1px solid #ccc; padding-right:10px;">
+            <h3>Bài học</h3>
+            <ul style="list-style:none; padding:0;">
+
+                <% course.lessons.forEach((lesson, index) => { %>
+                    <li style="margin-bottom:10px;">
+                        <a href="#" 
+                           class="lesson-item <%= index === 0 ? 'active' : '' %>"
+                           data-video="<%= lesson.video %>"
+                           data-title="<%= lesson.title %>">
+                            <%= lesson.title %>
+                        </a>
+                    </li>
+                <% }) %>
+
+            </ul>
+        </div>
+
+        <!-- CONTENT -->
+        <div style="flex:1; padding-left:20px;">
+
+            <% const currentLesson = course.lessons[0]; %>
+
+            <h2 id="lesson-title"><%= currentLesson.title %></h2>
+
+            <video id="lesson-video" width="800" controls>
+                <source id="video-source" src="/videos/<%= currentLesson.video %>" type="video/mp4">
+            </video>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    const lessons = document.querySelectorAll(".lesson-item");
+    const video = document.getElementById("lesson-video");
+    const videoSource = document.getElementById("video-source");
+    const title = document.getElementById("lesson-title");
+
+    lessons.forEach(item => {
+        item.addEventListener("click", function(e) {
+            e.preventDefault();
+
+            // active
+            lessons.forEach(l => l.classList.remove("active"));
+            this.classList.add("active");
+
+            const newVideo = this.dataset.video;
+            const newTitle = this.dataset.title;
+
+            // đổi video
+            videoSource.src = "/videos/" + newVideo;
+            video.load();
+
+            // đổi title
+            title.innerText = newTitle;
+        });
+    });
+</script>
+
+</body>
+</html>
